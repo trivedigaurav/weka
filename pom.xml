@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>nz.ac.waikato.cms.weka</groupId>
-  <artifactId>weka-stable</artifactId>
+  <artifactId>weka-stable-libsvm</artifactId>
   <version>3.6.10</version><!-- weka-version -->
   <packaging>jar</packaging>
 
@@ -108,7 +108,13 @@
       <groupId>net.sf.squirrel-sql.thirdparty-non-maven</groupId>
       <artifactId>java-cup</artifactId>
       <version>0.11a</version>
-    </dependency>    
+    </dependency>  
+
+    <dependency>
+      <groupId>tw.edu.ntu.csie</groupId>
+      <artifactId>libsvm</artifactId>
+      <version>3.17</version>
+    </dependency>  
   </dependencies>
 
   <properties>

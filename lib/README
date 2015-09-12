@@ -17,6 +17,11 @@ An overview of the libraries used in Weka:
   Version:  1.4.2
   URL:      http://jflex.de/
   Download: http://jflex.de/jflex-1.4.2.tar.gz
+
+- LibSVM
+  Version:  3.17
+  URL:      http://www.csie.ntu.edu.tw/~cjlin/libsvm/
+  Download: http://www.csie.ntu.edu.tw/~cjlin/cgi-bin/libsvm.cgi?+http://www.csie.ntu.edu.tw/~cjlin/libsvm+tar.gz
   
 
 Version: $Revision$

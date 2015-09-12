@@ -49,6 +49,8 @@ import java.util.Random;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+import libsvm.svm_node;
+
 /*
  * Modifications by FracPete:
  * - complete overhaul to make it useable in Weka
@@ -1656,6 +1658,57 @@ public class LibSVM
    */
   public static void main(String[] args) {
     runClassifier(new LibSVM(), args);
+  }
+
+  /**
+   * Methods to retrieve weights from LibSVM
+   */
+
+  public double[] getFeatureWeights(int nFeatures)
+    throws Exception
+  {
+    int l = ((Integer)getField(this.m_Model, "l")).intValue();
+    int nr_class = ((Integer)getField(this.m_Model, "nr_class")).intValue();
+    int[] nSV = (int[])getField(this.m_Model, "nSV");
+    double[][] coef = (double[][])getField(this.m_Model, "sv_coef");
+    svm_node[][] SV = (svm_node[][])getField(this.m_Model, "SV");
+
+    int dim = nFeatures + 1;
+    double[] weight_list = new double[dim - 1];
+
+    for (int j = 0; j < weight_list.length; j++) {
+      weight_list[j] = 0.0D;
+      for (int i = 0; i < l; i++) {
+        weight_list[j] += coef[0][i] * getSVvalue(SV, i, j + 1);
+      }
+
+    }
+
+    int[] labels = (int[])getField(this.m_Model, "label");
+    if (labels[0] != 1) {
+      for (int i = 0; i < weight_list.length; i++) {
+        weight_list[i] *= -1.0D;
+      }
+    }
+
+    return weight_list;
+  }
+
+  private double getSVvalue(svm_node[][] sv, int datapoint, int attr) {
+    int bound = sv[datapoint].length;
+    double value = 0.0D;
+    for (int i = 0; i < bound; i++) {
+      if (sv[datapoint][i].index == attr) {
+        value = sv[datapoint][i].value;
+        break;
+      }
+    }
+
+    return value;
+  }
+
+  public int[] getLabelList() {
+    return (int[])getField(this.m_Model, "label");
   }
 }
 
